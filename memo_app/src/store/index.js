@@ -7,26 +7,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins: [createdPersistedState()],
   state: {
-    memos: [
-      { id: 1, body: 'サンプルのメモです' }
-    ]
+    memos: []
   },
   mutations: {
-    save (state, memo) {
-      const max = state.memos[state.memos.length - 1].id
-      memo.id = max + 1
+    create (state, memo) {
+      memo.id = state.memos.length + 1
       state.memos.push(memo)
     },
     update (state, data) {
-      const x = state.memos.find(memo => memo.id === data.id)
-      x.body = data.body
+      const updatedData = state.memos.find(memo => memo.id === data.id)
+      updatedData.body = data.body
     },
-    remove (state, id) {
-      for (let i = 0; i < state.memos.length; i++) {
-        if (state.memos[i].id === id) {
-          state.memos.splice(i, 1)
-        }
-      }
+    destroy (state, id) {
+      state.memos = state.memos.filter(memo => memo.id !== id)
     }
   }
 })

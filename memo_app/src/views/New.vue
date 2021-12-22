@@ -1,7 +1,7 @@
 <template>
-  <div class="editor">
+  <div>
     <textarea name="memo" v-model="memoBody"></textarea>
-    <button v-on:click="save">追加</button>
+    <button @click="create">追加</button>
   </div>
 </template>
 
@@ -14,8 +14,8 @@ export default {
     }
   },
   methods: {
-    save: function() {
-      this.$store.commit("save", {
+    create: function() {
+      this.$store.commit("create", {
         body: this.memoBody
       });
       this.$router.push("/");
